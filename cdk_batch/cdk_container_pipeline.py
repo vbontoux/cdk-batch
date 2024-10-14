@@ -80,7 +80,6 @@ class EcrPipelineStack(cdk.Stack):
 
         # GitHub access token stored in AWS Secrets Manager
         # github_token = secretsmanager.Secret.from_secret_name_v2(self, "GitHubToken", "github-token")
-        #secret_value = cdk.SecretValue.unsafe_plain_text("xxx")
         secret_value = properties["GitSecret"].secret_value
 
         source_action = codepipeline_actions.GitHubSourceAction(
