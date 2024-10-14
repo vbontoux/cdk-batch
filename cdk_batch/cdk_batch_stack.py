@@ -9,18 +9,9 @@ from aws_cdk import (
 )
 
 
-class CdkBatchStack(Stack):
+class BatchStack(Stack):
 
-    def __init__(self, scope: Construct, construct_id: str, **kwargs) -> None:
+    def __init__(self, scope: Construct, construct_id: str, properties, **kwargs) -> None:
         super().__init__(scope, construct_id, **kwargs)
 
-        queue = sqs.Queue(
-            self, "CdkBatchQueue",
-            visibility_timeout=Duration.seconds(300),
-        )
-
-        topic = sns.Topic(
-            self, "CdkBatchTopic"
-        )
-
-        topic.add_subscription(subs.SqsSubscription(queue))
+     

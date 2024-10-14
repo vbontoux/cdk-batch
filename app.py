@@ -2,12 +2,18 @@
 
 import aws_cdk as cdk
 
-from cdk_batch.cdk_batch_stack import CdkBatchStack
+from cdk_batch.cdk_batch_stack import BatchStack
 from cdk_batch.cdk_container_pipeline import EcrPipelineStack
+from cdk_batch.cdk_secret_manager import SecretManagerStack
 
+properties = { "stack": "cdk-batch-"}
 
 app = cdk.App()
-EcrPipelineStack(app, "EcrPipelineStack")
 
-#CdkBatchStack(app, "CdkBatchStack")
+SecretManagerStack(app, "SecretManagerStack", properties)
+
+EcrPipelineStack(app, "EcrPipelineStack", properties)
+
+#BatchStack(app, "CdkBatchStack")
+
 app.synth()

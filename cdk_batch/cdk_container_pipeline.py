@@ -13,7 +13,7 @@ from aws_cdk import aws_iam as iam
 
 class EcrPipelineStack(cdk.Stack):
 
-    def __init__(self, scope: Construct, id: str, **kwargs) -> None:
+    def __init__(self, scope: Construct, id: str, properties, **kwargs) -> None:
         super().__init__(scope, id, **kwargs)
     
         # Get the current region
@@ -81,7 +81,8 @@ class EcrPipelineStack(cdk.Stack):
         # GitHub access token stored in AWS Secrets Manager
         # github_token = secretsmanager.Secret.from_secret_name_v2(self, "GitHubToken", "github-token")
         # secret_value = cdk.SecretValue.unsafe_plain_text("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")
-        secret_value = cdk.SecretValue.unsafe_plain_text("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")
+        #secret_value = cdk.SecretValue.unsafe_plain_text("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")
+        secret_value = properties["GitSecret"].secret_value
 
         source_action = codepipeline_actions.GitHubSourceAction(
             action_name="GitHub_Source",
