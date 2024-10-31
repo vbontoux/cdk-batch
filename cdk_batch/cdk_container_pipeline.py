@@ -85,7 +85,7 @@ class EcrPipelineStack(cdk.Stack):
         source_action = codepipeline_actions.GitHubSourceAction(
             action_name="GitHub_Source",
             owner="vbontoux",  # Replace with your GitHub username
-            repo="cdk-batch",    # Replace with your repository name
+            repo="cdk-batch",    # Replace with your git repository name
             branch="main",           # Replace with your repository branch
             #oauth_token=cdk.SecretValue.secrets_manager("github-token"), 
             oauth_token=secret_value,
@@ -113,6 +113,7 @@ class EcrPipelineStack(cdk.Stack):
             ]
         )
 
+        properties["ECR_REPO"] = ecr_repository
         # Output the ECR repository URI
         cdk.CfnOutput(self, 'EcrRepoUri', value=ecr_repository.repository_uri)
 
