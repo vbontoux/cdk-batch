@@ -3,6 +3,7 @@
 import time
 import datetime
 import signal
+from os import getenv
 
 class GracefulKiller:
   kill_now = False
@@ -15,10 +16,15 @@ class GracefulKiller:
 
 def job():
     killer = GracefulKiller()
+    duration = getenv('BATCH_JOB_DURATION', 100)
+    start = datetime.datetime.now()
     while not killer.kill_now:
         now = datetime.datetime.now()
         print(f'Job running {now.strftime("%Y-%m-%d %H:%M:%S")}')    
-        time.sleep(1)
+        time.sleep(10)
+        if now - start > datetime.timedelta(seconds=int(duration)):
+            killer.kill_now = True
+            print("Job Finished")
     print("Job exited gracefully")
 
 
